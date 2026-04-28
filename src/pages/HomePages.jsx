@@ -1,7 +1,15 @@
 import React from "react";
 import MovieCard from "../components/MovieCard";
+import { MOVIES } from "../data/Movies";
+import { useState } from "react";
 
 function HomePages() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredMovies = MOVIES.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="w-full   max-w-365 p-8 m-auto">
       <div className="pt-28">
@@ -17,6 +25,7 @@ function HomePages() {
             type="text"
             placeholder="Filmnomini qidiring"
             className="outline-none"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
@@ -24,7 +33,7 @@ function HomePages() {
         <h2 className="my-10 tracking-wider text-2xl text-[#4D5552]">
           Barcha filmlar
         </h2>
-        <MovieCard />
+        <MovieCard movies = {filteredMovies}/>
       </div>
     </div>
   );
